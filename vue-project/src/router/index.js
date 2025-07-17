@@ -4,6 +4,8 @@ import Contact from '../view/contact.vue';
 import About from '../view/about.vue';
 import Todo from '../todo-app/todo.vue';
 import Landing from '../components/landing.vue';
+import { setupAuthGuard } from './authGuard'; // 👈 import guard setup
+
 
 
 
@@ -45,16 +47,7 @@ const router = createRouter({
   routes,
 });
 
-
-
-// 🔐 Global Route Guard
-router.beforeEach((to, from, next) => {
-  const isLoggedIn = localStorage.getItem('isLogin') === 'true'
-  if (to.meta.requiresAuth && !isLoggedIn) {
-    next('/') // redirect to landing page
-  } else {
-    next() // allow access
-  }
-})
+// 🔐 Register global guard
+setupAuthGuard(router);
 
 export default router;

@@ -102,9 +102,14 @@
     </section>
 
     <!-- Floating Button -->
-    <button class="fixed-dashboard-btn" @click="Login" data-aos="fade-left">
-      Login
-    </button>
+ <button
+  class="fixed-dashboard-btn d-flex align-items-center justify-content-center gap-2"
+  @click="Login"
+  data-aos="fade-left"
+>
+  <i class="bi bi-box-arrow-in-right"></i> <!-- Bootstrap Icon -->
+  Login
+</button>
   </div>
 </template>
 
@@ -151,7 +156,7 @@ onMounted(() => {
   bottom: 20px;
   right: 20px;
   z-index: 9999;
-  background-color: #10b981;
+  background-color: red;
   color: white;
   padding: 12px 20px;
   border: none;
@@ -162,8 +167,17 @@ onMounted(() => {
   transition: transform 0.3s ease;
 }
 
+.fixed-dashboard-btn i {
+  font-size: 20px;
+  transition: transform 0.3s ease;
+}
+
 .fixed-dashboard-btn:hover {
-  transform: scale(1.05);
-  background-color: #0b5ed7;
+  transform: translateY(-3px) scale(1.05);
+  background-color: #10b981;
+}
+
+.fixed-dashboard-btn:hover i {
+  transform: translateX(3px);
 }
 </style>
