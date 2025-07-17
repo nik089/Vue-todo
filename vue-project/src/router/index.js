@@ -3,6 +3,7 @@ import Home from '../view/Home.vue';
 import Contact from '../view/contact.vue';
 import About from '../view/about.vue';
 import Todo from '../todo-app/todo.vue';
+import Userlist from '../todo-separate-comp/userlist.vue'
 import Landing from '../components/landing.vue';
 import { setupAuthGuard } from './authGuard'; // 👈 import guard setup
 
@@ -37,6 +38,12 @@ const routes = [
     path: '/todo',
     name: 'todo',
     component: Todo,
+    meta: { requiresAuth: true }
+  },
+   {
+    path: '/todo-list-with-separate',
+    name: 'user-list',
+    component: Userlist,
     meta: { requiresAuth: true }
   },
   // Add more routes here if needed

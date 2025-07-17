@@ -26,7 +26,7 @@
 
         <li class="nav-item">
           <!-- use router link -->
-          <router-link class="nav-link" to="/todo">Todo With Separate(Comp)</router-link>
+          <router-link class="nav-link" to="/todo-list-with-separate">Todo With Separate(Comp)</router-link>
         </li>
         <li class="nav-item">
           <!-- use router link -->

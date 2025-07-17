@@ -1,51 +1,9 @@
 <template>
-  <div class="container my-5" v-if="!isShow">
-    <!-- Add Button -->
-    <div class="d-flex justify-content-between align-items-center  mb-3">
-      <h4 class="fw-bold text-primary mb-0">
-        📝 Todo Management
-      </h4>
-      <button class="btn btn-m btn-success rounded-1 px-4" @click="addUser">
-        <i class="bi bi-person-plus-fill me-1"></i> Add User
-      </button>
-    </div>
-
-    <!-- Table -->
-    <div class="table-responsive">
-      <table class="table table-bordered table-striped align-middle">
-        <thead class="table-dark text-center">
-          <tr>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Gender</th>
-            <th>Designation</th>
-            <th>Location</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(user, index) in users" :key="index">
-            <td>{{ user.name }}</td>
-            <td>{{ user.age }}</td>
-            <td>{{ user.gender }}</td>
-            <td>{{ user.designation }}</td>
-            <td>{{ user.location }}</td>
-            <td class="text-center">
-              <button class="btn btn-sm btn-warning me-1" @click="editUser(user, index)">Edit</button>
-              <button class="btn btn-sm btn-danger" @click="deleteUser(index)">Delete</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-
-  <div class="container my-5" v-if="isShow">
+  <div class="container my-5">
     <div class="card mb-5 shadow-sm border-0">
       <div class="card-header bg-dark text-white">
         <h5 class="mb-0"><i class="bi bi-person-plus-fill me-2"></i>
-          {{ isEdit ? "Edit" : "Add" }} New User</h5>
+            {{ isEdit ? "Edit" : "Add" }} New User</h5>
       </div>
 
       <div class="card-body bg-light">
@@ -127,20 +85,17 @@
   </div>
 </template>
 
-
-
 <script setup>
-import { reactive, ref } from 'vue';
+import { reactive, ref,watch  } from 'vue';
 import { useToast } from 'vue-toast-notification';
-const isShow = ref(false);
 const isEdit = ref(false);
-const toast = useToast()
-
-const users = reactive([
-  { name: 'Rahul Kumar', age: 28, gender: 'Male', designation: 'Frontend Developer', location: 'Delhi' },
-  { name: 'Priya Sharma', age: 25, gender: 'Female', designation: 'UX Designer', location: 'Mumbai' },
-  { name: 'Arjun Mehta', age: 30, gender: 'Male', designation: 'Backend Developer', location: 'Bangalore' }
-])
+const toast = useToast();
+// get data in another components
+const emit = defineEmits(['onBack', 'onAddUser','onUpdateUser']);
+const props = defineProps({
+  user: Object,
+  index: Number
+});
 
 const designations = reactive([
   { id: 'SOFT1001', label: 'Software Developer' },
@@ -152,6 +107,7 @@ const designations = reactive([
   { id: 'UXDE1007', label: 'UX Developer' },
   { id: 'TEST1008', label: 'Tester' }
 ])
+
 
 // Form data
 const form = reactive({
@@ -171,41 +127,6 @@ const errors = reactive({
   location: ''
 })
 
-//function are used move to add new user
-function addUser() {
-  isShow.value = true;
-  resetForm();
-}
-
-//function are used to edit user
-const editingIndex = ref(null)
-function editUser(selectedUser, index) {
-  if (selectedUser) {
-    isShow.value = true;
-    isEdit.value = true;
-    form.name = selectedUser.name
-    form.age = selectedUser.age
-    form.gender = selectedUser.gender
-    form.designation = selectedUser.designation
-    form.location = selectedUser.location
-
-    editingIndex.value = index;
-  }
-  alert('Edit user at index: ' + index);
-}
-
-// delete user data
-function deleteUser(index) {
-  if (confirm('Are you sure to delete this user?')) {
-    users.splice(index, 1);
-    toast.success('Deleted successfully!')
-  }
-}
-
-//show and hide table
-function showTable() {
-  isShow.value = false;
-}
 
 // form reset
 function resetForm() {
@@ -216,6 +137,21 @@ function resetForm() {
   form.location = ''
   Object.keys(errors).forEach(key => (errors[key] = ''))
 }
+
+watch(
+  () => props.user,
+  (newUser) => {
+    if (newUser) {
+      Object.assign(form, newUser);
+      isEdit.value = true;
+    } else {
+      resetForm();
+      isEdit.value = false;
+    }
+  },
+  { immediate: true }
+)
+
 
 // Validate specific field on input/change
 function validateField(field) {
@@ -238,34 +174,40 @@ function validateField(field) {
   }
 }
 
-// On Submit - validate all fields
 function handleSubmit() {
-  let isValid = true
-  validateField('name')
-  validateField('age')
-  validateField('gender')
-  validateField('designation')
-  validateField('location')
+  let isValid = true;
+  validateField('name');
+  validateField('age');
+  validateField('gender');
+  validateField('designation');
+  validateField('location');
 
   Object.values(errors).forEach(msg => {
-    if (msg) isValid = false
-  })
+    if (msg) isValid = false;
+  });
+
   if (isValid) {
     if (isEdit.value) {
-      // update existing user
-      users[editingIndex.value] = { ...form };
-      toast.success('User Updated successfully!')
+      emit('onUpdateUser', { user: { ...form }, index: props.index });
     } else {
-      // add new user
-      users.push({ ...form });
-      toast.success('New User Added successfully!')
+      emit('onAddUser', { ...form });
     }
+    toast.success(isEdit.value ? "User updated successfully!" : "User added successfully!");
     resetForm();
-    isShow.value = false;
-    isEdit.value = false
+    isEdit.value = false;
+    emit('onBack');
   } else {
-    toast.error('Please fill all required fields!')
+    toast.error('Please fix validation errors.');
   }
 }
 
+
+
+
+
+//back to user list
+function showTable(){
+  emit('onBack')
+
+}
 </script>
