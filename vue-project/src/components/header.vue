@@ -9,7 +9,7 @@
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
           <!-- ✅ Use router-link for internal navigation -->
-          <router-link class="nav-link" to="/">Home</router-link>
+          <router-link class="nav-link" to="/home">Home</router-link>
         </li>
         <li class="nav-item">
           <!-- ✅ Use programmatic navigation via @click -->
@@ -24,17 +24,17 @@
           <router-link class="nav-link" to="/todo">Todo</router-link>
         </li>
 
-           <li class="nav-item">
+        <li class="nav-item">
           <!-- use router link -->
           <router-link class="nav-link" to="/todo">Todo With Separate(Comp)</router-link>
         </li>
-           <li class="nav-item">
+        <li class="nav-item">
           <!-- use router link -->
           <router-link class="nav-link" to="/todo">Todo With Dummy API</router-link>
         </li>
 
       </ul>
-      <span class="navbar-text">
+      <span class="navbar-text" @click="logout">
         Logout
       </span>
     </div>
@@ -43,14 +43,25 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
+import { useToast } from 'vue-toast-notification';
+const toast = useToast();
 const router = useRouter();
+
 function goToContact() {
   router.push('/contact-us'); // ✅ correct path
+}
+function logout() {
+  localStorage.clear();
+  router.push('contact-us');
+  toast.success('Logout successfully!')
 }
 </script>
 
 <style scoped>
 .navbar {
   padding: 10px 20px;
+}
+.navbar-text{
+  cursor: pointer;
 }
 </style>
