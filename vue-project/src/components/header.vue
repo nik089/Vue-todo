@@ -30,7 +30,7 @@
         </li>
         <li class="nav-item">
           <!-- use router link -->
-          <router-link class="nav-link" to="/todo">Todo With Dummy API</router-link>
+          <router-link class="nav-link" to="/todo-dummy-api">Todo With Dummy API</router-link>
         </li>
 
       </ul>
@@ -79,5 +79,4 @@ function logout() {
 .logout-link i {
   font-size: 1.2rem;
 }
-
 </style>

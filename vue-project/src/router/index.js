@@ -6,6 +6,7 @@ import Todo from '../todo-app/todo.vue';
 import Userlist from '../todo-separate-comp/userlist.vue'
 import Landing from '../components/landing.vue';
 import { setupAuthGuard } from './authGuard'; // 👈 import guard setup
+import UserApiList from '../todo-dummy-api/userApiList.vue';
 
 
 
@@ -44,6 +45,12 @@ const routes = [
     path: '/todo-list-with-separate',
     name: 'user-list',
     component: Userlist,
+    meta: { requiresAuth: true }
+  },
+     {
+    path: '/todo-dummy-api',
+    name: 'user-api-list',
+    component: UserApiList,
     meta: { requiresAuth: true }
   },
   // Add more routes here if needed
