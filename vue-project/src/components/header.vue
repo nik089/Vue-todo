@@ -34,7 +34,8 @@
         </li>
 
       </ul>
-      <span class="navbar-text" @click="logout">
+      <span class="navbar-text logout-link" @click="logout">
+        <i class="bi bi-box-arrow-right me-2"></i>
         Logout
       </span>
     </div>
@@ -61,7 +62,22 @@ function logout() {
 .navbar {
   padding: 10px 20px;
 }
-.navbar-text{
+
+.logout-link {
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  color: #dc3545;
+  transition: color 0.2s ease;
 }
+
+.logout-link:hover {
+  color: #bb2d3b;
+}
+
+.logout-link i {
+  font-size: 1.2rem;
+}
+
 </style>
