@@ -19,10 +19,20 @@
           <!-- use router link -->
           <router-link class="nav-link" to="/about">About-us</router-link>
         </li>
-           <li class="nav-item">
+        <li class="nav-item">
           <!-- use router link -->
           <router-link class="nav-link" to="/todo">Todo</router-link>
         </li>
+
+           <li class="nav-item">
+          <!-- use router link -->
+          <router-link class="nav-link" to="/todo">Todo With Separate(Comp)</router-link>
+        </li>
+           <li class="nav-item">
+          <!-- use router link -->
+          <router-link class="nav-link" to="/todo">Todo With Dummy API</router-link>
+        </li>
+
       </ul>
       <span class="navbar-text">
         Logout
@@ -40,7 +50,7 @@ function goToContact() {
 </script>
 
 <style scoped>
-.navbar{
+.navbar {
   padding: 10px 20px;
 }
 </style>

@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../components/Home.vue';
-import Contact from '../components/contact.vue';
-import About from '../components/about.vue';
-import Todo from '../components/todo.vue';
+import Home from '../view/Home.vue';
+import Contact from '../view/contact.vue';
+import About from '../view/about.vue';
+import Todo from '../todo-app/todo.vue';
 
 
 

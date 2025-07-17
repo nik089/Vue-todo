@@ -252,14 +252,14 @@ function handleSubmit() {
       // update existing user
       users[editingIndex.value] = { ...form };
       toast.success('User Updated successfully!')
-
     } else {
       // add new user
       users.push({ ...form });
       toast.success('New User Added successfully!')
-
-    } resetForm();
+    }
+    resetForm();
     isShow.value = false;
+    isEdit.value = false
   } else {
     toast.error('Please fill all required fields!')
   }
