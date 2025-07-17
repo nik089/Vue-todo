@@ -1,7 +1,7 @@
 <template>
   <div class="landing-page text-center">
     <!-- Hero Banner (no padding, full-width image) -->
-    <section class="hero-section text-white bg-gradient m-0">
+    <section class="hero-section text-dark m-0">
       <h1 class="fw-bold">Welcome to InsightX</h1>
       <p class="lead">Transform data into decisions with our powerful analytics platform.</p>
       <img src="https://picsum.photos/seed/hero/1920/600" class="w-100 img-fluid hero-image" alt="Hero Image" />
