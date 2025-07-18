@@ -79,4 +79,10 @@ function logout() {
 .logout-link i {
   font-size: 1.2rem;
 }
+
+/* ✅ Highlight active router link in green */
+:deep(.router-link-active) {
+  color: #28a745 !important; /* green */
+  font-weight: bold;
+}
 </style>

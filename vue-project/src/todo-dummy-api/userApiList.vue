@@ -103,9 +103,13 @@ async function fetchUsers() {
 async function userDelete(userId) {
   const confirmed = confirm('Are you sure you want to delete this user?');
   if (!confirmed) return;
+
   try {
     const res = await userService.deleteUser(userId);
-    if (res.status === 204) {
+    console.log(res, "res");
+    // ✅ Check if deleted successfully by `isDeleted` in response data
+    const isDeleted = res?.data?.isDeleted;
+    if (isDeleted) {
       toast.success('User deleted successfully!');
       await fetchUsers(); // Refresh list
     } else {
@@ -116,6 +120,7 @@ async function userDelete(userId) {
     toast.error('Error deleting user. Try again later.');
   }
 }
+
 
 // Show add form
 function addUser() {

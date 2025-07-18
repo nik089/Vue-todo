@@ -10,23 +10,25 @@ const apiClient = axios.create({
 });
 
 export default {
-  // ✅ Get Users (paginated list)
+  // ✅ Get products (paginated list)
   async getProducts() {
     return apiClient.get(`/products`);
   },
 
-  // ✅ Create a new user
+  // ✅ Create a new products
   async createUser(data) {
-    return apiClient.post('/users', data);
+    return apiClient.post('/products/add', data);
   },
 
-  // ✅ Update user by ID
+  // ✅ Update products by ID
   async updateUser(id, data) {
-    return apiClient.put(`/users/${id}`, data);
+    return apiClient.put(`/products/${id}`, data);
   },
 
-  // ✅ Delete user by ID
+  // ✅ Delete products by ID
   async deleteUser(id) {
-    return apiClient.delete(`/users/${id}`);
+    return apiClient.delete(`/products/${id}`);
   }
 };
+
+
