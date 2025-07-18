@@ -3,17 +3,16 @@ import axios from 'axios';
 
 // Reusable axios instance with default headers
 const apiClient = axios.create({
-  baseURL: 'https://reqres.in/api',
+  baseURL: 'https://dummyjson.com/',
   headers: {
-    'x-api-key': 'reqres-free-v1', // API key
     'Content-Type': 'application/json',
   },
 });
 
 export default {
   // ✅ Get Users (paginated list)
-  async getUsers(page = 1) {
-    return apiClient.get(`/users`);
+  async getProducts() {
+    return apiClient.get(`/products`);
   },
 
   // ✅ Create a new user

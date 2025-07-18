@@ -19,40 +19,51 @@
     <!-- Table or No Data -->
     <div v-else>
       <div v-if="users.length > 0" class="table-responsive">
-        <table class="table table-bordered table-striped align-middle">
-          <thead class="table-dark text-center">
+        <table class="table table-bordered table-striped align-middle text-center">
+          <thead class="table-danger">
             <tr>
               <th>ID</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Avatar</th>
-              <th>Email</th>
+              <th>Title</th>
+              <th>Price</th>
+              <th>Discount Percentage</th>
+              <th>Rating</th>
+              <th>Stock</th>
+              <th>Brand</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(user, index) in users" :key="user.id">
               <td>{{ user.id }}</td>
-              <td>{{ user.first_name }}</td>
-              <td>{{ user.last_name }}</td>
-              <td><img :src="user.avatar" alt="avatar" width="50" class="rounded-circle" /></td>
-              <td>{{ user.email }}</td>
+              <td>{{ user.title }}</td>
+              <td>(₹) {{ user.price }}</td>
+              <td>(₹) {{ user.discountPercentage }}</td>
+              <td>{{ user.rating }}/5</td>
+              <td>{{ user.stock }}</td>
+              <td>{{ user.brand || 'NA' }}</td>
+
               <td class="text-center">
-                <button class="btn btn-sm btn-warning me-1" @click="editUser(user, index)">Edit</button>
-                <button class="btn btn-sm btn-danger" @click="userDelete(user.id)">Delete</button>
+                <!-- Edit Icon Button -->
+                <button class="btn btn-sm btn-warning me-1" @click="editUser(user, index)">
+                  <i class="bi bi-pencil-square"></i>
+                </button>
+
+                <!-- Delete Icon Button -->
+                <button class="btn btn-sm btn-danger" @click="userDelete(user.id)">
+                  <i class="bi bi-trash"></i>
+                </button>
               </td>
+
             </tr>
           </tbody>
         </table>
       </div>
-
       <!-- No Data Message -->
       <div v-else class="text-center my-5">
         <h5 class="text-muted">No users found.</h5>
       </div>
     </div>
   </div>
-
   <!-- Add/Edit Form Component -->
   <addEditUser v-if="isShow" :user="selectedUser" :index="editingIndex" @onBack="isShow = false" />
 </template>
@@ -77,8 +88,9 @@ onMounted(fetchUsers);
 async function fetchUsers() {
   loading.value = true;
   try {
-    const res = await userService.getUsers();
-    users.value = res.data.data || [];
+    const res = await userService.getProducts();
+    users.value = res.data.products || [];
+    console.log(users.value, " users.value")
   } catch (err) {
     console.error('Error loading users', err);
     toast.error('Failed to load users.');
